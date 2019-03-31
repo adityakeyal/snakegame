@@ -78,14 +78,19 @@ function Snake(){
       if(this.crashed){
         fill(205, 50, 50); //
         background(205, 50, 50)
-
+		
         //add text game over
-        let font,fontsize = 40;
+        let font,fontsize = 30;
         // textFont(font);
         textSize(fontsize);
         textAlign(CENTER, CENTER);
-        fill(0);
-        text('Game Over', width/4, 200);
+        stroke(255, 255, 10)
+		fill(255, 255, 10);
+        text('Game Over', width/2, height/4);
+		textSize(20);
+        
+		text('Score ' + this.score, width/2, height/2);
+		
           
       }else{
         for(let i=0;i<this.locations.length;i++){
