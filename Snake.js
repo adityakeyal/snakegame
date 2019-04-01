@@ -52,9 +52,11 @@ function Snake(){
             document.getElementById("score").innerText=this.score
             this.reward.create();
             this.size++;
+
             if(this.score%10==0 && this.score>0){
               // Need to control speed here
               this.snakeSpeed--
+
 
             }
 
