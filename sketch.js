@@ -1,9 +1,11 @@
 let s = new Snake();
-let fr = 10;
+
+
+
 function setup() {
   createCanvas(200, 200);
-  fill(51);
-  frameRate(fr);
+  fill(5);
+  frameRate(60);
   s.setup();
 }
 function draw() {
@@ -14,6 +16,7 @@ function draw() {
 }
 
 function keyPressed(){
+
     if(keyCode === UP_ARROW){
       s.dir(0,-1);
     }else

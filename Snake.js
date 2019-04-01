@@ -11,6 +11,11 @@ function Snake(){
 
     this.crashed = false;
 
+    this.snakeSpeed = 6;
+    this.currentCounter = 1;
+
+    this.pendingDirChange = false;
+
   this.setup = function(){
 
       this.reward.create();
@@ -19,7 +24,16 @@ function Snake(){
     this.update = function(){
 
       
-        
+      if((this.currentCounter%this.snakeSpeed) != 0){
+        this.currentCounter++;
+        return;
+      }
+      this.currentCounter = 1;
+
+      
+        if(this.crashed){
+          return;
+        }
 
         let current = new Position();
         if(this.locations.length > 0 ){
@@ -38,9 +52,10 @@ function Snake(){
             document.getElementById("score").innerText=this.score
             this.reward.create();
             this.size++;
-            if(this.score%3==0){
-              fr+=2;
-              frameRate(fr)
+            if(this.score%10==0 && this.score>0){
+              // Need to control speed here
+              this.snakeSpeed--
+
             }
 
         }
@@ -52,6 +67,8 @@ function Snake(){
         if(!this.crash(current)){
           this.locations.push(current);
         }
+        
+        this.pendingDirChange = false;
 
         
     }
@@ -103,12 +120,19 @@ function Snake(){
     }
 
     this.dir = function(x,y){
+
+      if(this.pendingDirChange){
+        return;
+      }
+
     if((x==1 && this.xspeed== -1) ||(x==-1 && this.xspeed== 1) || (y==1 && this.yspeed== -1)  || (y==-1 && this.yspeed==1)){
       return;
     }
 
       this.xspeed=x;
       this.yspeed=y;
+
+      this.pendingDirChange = true;
     }
 
 
@@ -167,9 +191,13 @@ function Reward(){
   }
 
   this.paint=function(){
-    noStroke();
-    fill(255);
-    rect(this.x,this.y,size,size);
+    noStroke(0)
+    fill('#C40000');
+    ellipse(this.x+size/2,this.y+size/2,size,size);
+
+    // fill('#ffffff');
+    // stroke('#ffffff')
+    // point(this.x+size/2,this.y+size/2);
 
   }
 
